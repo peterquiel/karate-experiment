@@ -1,0 +1,18 @@
+= My Karate Experiments
+
+Karate is a truly DSL to test web apis - see https://github.com/intuit/karate.
+
+This repository is my sandbox, a place where I put my experiments.
+
+== Motivation
+
+Karate offers already https://github.com/intuit/karate/tree/master/karate-demo[many examples and demos] but as everybody should know:
+
+> There is no better teacher than experience itself
+
+That's why I create my own little experiments. I try to use the https://popcornflow.com[popcornflow] to structure experiments and having
+expectations upfront. Comparing my expectations with that what really happened enables me to learn.
+
+== Lessons Learned
+
+No yet
