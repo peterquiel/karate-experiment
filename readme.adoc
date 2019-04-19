@@ -15,4 +15,11 @@ expectations upfront. Comparing my expectations with that what really happened e
 
 == Lessons Learned
 
-No yet
+[TIP]
+====
+Use Groovy to call karate features
+
+Calling karate features from Groovy is a nice fit.
+Because of groovy native support for lists and maps, it plays nicely together with the karate json format.
+
+Checkout link:src/test/groovy/com/github/peterquiel/karate/experiment/CallFeatureFromJavaTest.groovy[CallFeatureFromJavaTest.groovy]
