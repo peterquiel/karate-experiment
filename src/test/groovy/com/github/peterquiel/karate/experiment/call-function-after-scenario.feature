@@ -11,5 +11,3 @@ Feature: Call functions after every scenario
 
   Scenario: Just a simple hello world scenario
     * print "simple scenario..."
-#    * def fn = read('classpath:after-scenario-with-params.js')
-#    * def test = call fn "test"
