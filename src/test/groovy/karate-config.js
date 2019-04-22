@@ -17,7 +17,7 @@ function fn() {
     };
 
     if (!env) {
-        env = 'dev'; // a custom 'intelligent' default
+        env = 'dev';
     }
 
     if (env === 'stage') {
@@ -25,6 +25,8 @@ function fn() {
         config.someUrlBase = 'https://stage-host/v1/auth';
     } else if (env === 'e2e') {
         config.someUrlBase = 'https://e2e-host/v1/auth';
+    } else if (env === 'dev') {
+        config.someUrlBase = 'http://develop.nohost.de/v1/auth';
     }
     // don't waste time waiting for a connection or if servers don't respond within 5 seconds
     karate.configure('connectTimeout', 5000);

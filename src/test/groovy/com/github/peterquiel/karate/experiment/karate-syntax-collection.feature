@@ -101,3 +101,7 @@ Feature: Testing the karate syntax features and use this as a small executable r
       {name : "Stevens", likes : '3'}
     ]
     """
+
+    Scenario: Read environment configuration
+#      The configuration returned by the karate-config.js function are directly available as global properties.
+      * print "Environment configuration for someUrlBase:", someUrlBase
