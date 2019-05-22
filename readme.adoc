@@ -35,3 +35,14 @@ Calling karate features from Groovy is a nice fit.
 Because of groovy native support for lists and maps, it plays nicely together with the karate json format.
 
 Checkout link:src/test/groovy/com/github/peterquiel/karate/experiment/CallFeatureFromJavaTest.groovy[CallFeatureFromJavaTest.groovy]
+====
+
+[CAUTION]
+====
+Gradle separates resource files from class files.
+
+The easiest way to avoid "cannot find feature file" or "config.json not found" problems, is to
+place resource file in `src/test/resources`.
+
+Having `*.feature` files next to the Runner file is nice and reduces the code navigation distance, but this can cause headache.
+====
