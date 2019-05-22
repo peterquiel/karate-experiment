@@ -42,7 +42,7 @@ Checkout link:src/test/groovy/com/github/peterquiel/karate/experiment/CallFeatur
 Gradle separates resource files from class files.
 
 The easiest way to avoid "cannot find feature file" or "config.json not found" problems, is to
-place resource file in `src/test/resources`.
+place resource files in `src/test/resources`.
 
-Having `*.feature` files next to the Runner file is nice and reduces the code navigation distance, but this can cause headache.
+Having `*.feature` files next to the Runner files is nice and reduces the code navigation distance, but this can cause headache.
 ====
