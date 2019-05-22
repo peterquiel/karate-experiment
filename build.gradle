@@ -67,7 +67,7 @@ sourceSets {
 
     test {
         resources {
-            srcDirs = ['src/test/groovy','src/test/scala']
+            srcDirs = ['src/test/resources','src/test/groovy','src/test/scala']
         }
     }
 }
@@ -77,7 +77,7 @@ task gatlingRun(type: JavaExec) {
     dependsOn testClasses
 
     description = 'Run Gatling Tests'
-    
+
     new File("${buildDir}/reports/gatling").mkdirs()
 
     classpath = sourceSets.test.runtimeClasspath

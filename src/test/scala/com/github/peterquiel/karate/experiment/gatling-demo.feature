@@ -1,7 +1,6 @@
 Feature: Gatling Demo Setup
 
   Scenario: Reading configuration from json or yaml file from gatling
-
     * print 'Yaml config read form karate-config.js:'
     * print yamlConfig
     * json configFromJsonFile = karate.read("classpath:config.json")
