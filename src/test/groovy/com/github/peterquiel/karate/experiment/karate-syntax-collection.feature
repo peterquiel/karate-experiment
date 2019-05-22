@@ -28,7 +28,7 @@ Feature: Testing the karate syntax features and use this as a small executable r
     Given
     * def somethingToEmbed = { "Doctor" : "Who" }
     #  Embedding syntax is a little awkward but works well and is really useful.
-    # So the rule is - if a string value within a JSON (or XML) object declaration is enclosed between #( and ) - it will be evaluated as a JavaScript expression.
+    # So the rule is - if a string value within a JSON (or XML) object declaration is enclosed between #( and ) - it will be https://open.spotify.com/artist/0MvSBMGRQJY3mRwIbJsqF1evaluated as a JavaScript expression.
     * def myFirstJson = { foo : "no bar", mr : "pink", fibo : [1,1,2,3,5,8], series: '#(somethingToEmbed)' }
     * def thirdFibo = myFirstJson.fibo[2]
 
@@ -102,6 +102,24 @@ Feature: Testing the karate syntax features and use this as a small executable r
     ]
     """
 
-    Scenario: Read environment configuration
+  Scenario: Read environment configuration
 #      The configuration returned by the karate-config.js function are directly available as global properties.
-      * print "Environment configuration for someUrlBase:", someUrlBase
+    * print "Environment configuration for someUrlBase:", someUrlBase
+
+    Scenario: Reading configuration from json or yaml file
+      * json configFromJsonFile = karate.read("classpath:config.json")
+      * print configFromJsonFile
+      * json configFromYamlFile = karate.read("classpath:config.yml")
+      * print configFromYamlFile
+
+
+  Scenario: Setting and reading karate properties
+    * def fun =
+   """
+    function () {
+        var client = karate.get('client') || "loyalty";
+        karate.log("the client set as: ", client);
+    }
+   """
+    * eval karate.set('client', 'delivery')
+    * call fun

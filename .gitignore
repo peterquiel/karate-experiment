@@ -38,4 +38,5 @@ gradle-app.setting
 target
 out
 *.iml
-# End of https://www.gitignore.io/api/java,gradle
+
+google_credentials.json

@@ -2,6 +2,7 @@ package com.github.peterquiel.karate.experiment
 
 import com.intuit.karate.junit5.Karate
 
+
 class KarateSyntaxCollectionTest {
 
     @Karate.Test

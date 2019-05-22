@@ -13,6 +13,18 @@ Karate offers already https://github.com/intuit/karate/tree/master/karate-demo[m
 That's why I create my own little experiments. I try to use the https://popcornflow.com[popcornflow] to structure experiments and having
 expectations upfront. Comparing my expectations with that what really happened enables me to learn.
 
+== Gatling Setup
+
+`src/test/scala` contains gatling tests and these tests can be executed with the `gatlingRun` task.
+
+The karate environment can be changed as usual.
+
+Example:
+
+----
+gradle gatlingRun -Dkarate.env=DEV
+----
+
 == Lessons Learned
 
 [TIP]

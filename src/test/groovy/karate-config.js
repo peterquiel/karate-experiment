@@ -12,9 +12,13 @@ function fn() {
 
     karate.log('karate.env system property was:', env);
 
+    var yamlConfig = karate.read('classpath:config.json');
+
     var config = {
         someDefaultConfig: "mr.pink"
     };
+
+    config.yamlConfig = yamlConfig;
 
     if (!env) {
         env = 'dev';
