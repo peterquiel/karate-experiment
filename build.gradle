@@ -7,7 +7,7 @@
  */
 buildscript {
     ext {
-        karateVersion = '0.9.2'
+        karateVersion = '0.9.3'
     }
 }
 plugins {
@@ -21,10 +21,6 @@ repositories {
     jcenter()
 }
 
-configurations {
-    gatling
-}
-
 ext.junitPlatformVersion = '1.4.2'
 ext.junitJupiterVersion = '5.4.2'
 ext.jqwikVersion = '1.1.2'
@@ -35,17 +31,15 @@ dependencies {
     testCompile "com.intuit.karate:karate-junit5:${karateVersion}"
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
     testCompile "com.intuit.karate:karate-apache:${karateVersion}"
-    testCompile("com.intuit.karate:karate-mock-servlet:${karateVersion}")
     testCompile("com.intuit.karate:karate-gatling:${karateVersion}")
+    testCompile("com.intuit.karate:karate-mock-servlet:${karateVersion}")
     testCompile("net.masterthought:cucumber-reporting:3.8.0")
     // aggregate jqwik dependency
     testCompile "net.jqwik:jqwik:${jqwikVersion}"
 
-    gatling "org.scala-lang:scala-library:2.12.8"
-    gatling "io.gatling:gatling-app:3.0.2"
-    gatling "io.gatling.highcharts:gatling-charts-highcharts:3.0.2"
-    gatling "com.intuit.karate:karate-gatling:${karateVersion}"
-
+    testCompile"io.gatling:gatling-app:3.0.2"
+    testCompile"io.gatling.highcharts:gatling-charts-highcharts:3.0.2"
+    testCompile"com.intuit.karate:karate-gatling:${karateVersion}"
 }
 
 test {
@@ -59,6 +53,8 @@ test {
     systemProperty "karate.options", System.properties.getProperty("karate.options")
     // pull karate env into the runtime
     systemProperty "karate.env", System.properties.getProperty("karate.env")
+    
+    systemProperty "kick_my_ass", System.properties.kick_my_ass
     // ensure tests are always run
     outputs.upToDateWhen { false }
 }
@@ -73,9 +69,7 @@ sourceSets {
 }
 
 task gatlingRun(type: JavaExec) {
-
-    dependsOn testClasses
-
+    group = 'Web Tests'
     description = 'Run Gatling Tests'
 
     new File("${buildDir}/reports/gatling").mkdirs()

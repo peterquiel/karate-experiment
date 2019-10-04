@@ -25,7 +25,7 @@ Feature: Testing the karate syntax features and use this as a small executable r
     * print 'But I like the way this dsl is build Gherkin offers at least some IDE functions like execute in place'
 
   Scenario: Starting to play around with native json support
-    Given
+  Given
     * def somethingToEmbed = { "Doctor" : "Who" }
     #  Embedding syntax is a little awkward but works well and is really useful.
     # So the rule is - if a string value within a JSON (or XML) object declaration is enclosed between #( and ) - it will be https://open.spotify.com/artist/0MvSBMGRQJY3mRwIbJsqF1evaluated as a JavaScript expression.
@@ -106,11 +106,11 @@ Feature: Testing the karate syntax features and use this as a small executable r
 #      The configuration returned by the karate-config.js function are directly available as global properties.
     * print "Environment configuration for someUrlBase:", someUrlBase
 
-    Scenario: Reading configuration from json or yaml file
-      * json configFromJsonFile = karate.read("classpath:config.json")
-      * print configFromJsonFile
-      * json configFromYamlFile = karate.read("classpath:config.yml")
-      * print configFromYamlFile
+  Scenario: Reading configuration from json or yaml file
+    * json configFromJsonFile = karate.read("classpath:config.json")
+    * print configFromJsonFile
+    * json configFromYamlFile = karate.read("classpath:config.yml")
+    * print configFromYamlFile
 
 
   Scenario: Setting and reading karate properties
@@ -123,3 +123,21 @@ Feature: Testing the karate syntax features and use this as a small executable r
    """
     * eval karate.set('client', 'delivery')
     * call fun
+
+
+  Scenario: Contains any test case
+      #  contains any expects json arrays or object on left and right side. Type of left and right side must be the same.
+    * match  ['active', 'deleted'] contains any ['status', 'active']
+    * match  {'foo':'bar'} contains any {'foo':'bar', 'mr':'pink'}
+
+
+  Scenario: Type conversion
+    * text foo =
+    """
+    name,type
+    Billie,LOL
+    Bob,Wild
+    """
+    * csv bar = foo
+    * match bar == [{ name: 'Billie', type: 'LOL' }, { name: 'Bob', type: 'Wild' }]
+
