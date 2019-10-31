@@ -7,7 +7,7 @@
  */
 buildscript {
     ext {
-        karateVersion = '0.9.3'
+        karateVersion = '0.9.5.RC3'
     }
 }
 plugins {

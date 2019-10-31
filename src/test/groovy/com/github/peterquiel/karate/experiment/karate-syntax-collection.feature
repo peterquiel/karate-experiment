@@ -17,6 +17,12 @@ Feature: Testing the karate syntax features and use this as a small executable r
 
     Then assert color + num == 'red 5'
 
+    Scenario: Karate Strings
+      * def singleQuoteString = 'just a string'
+      * def doubleQuoteString = "no difference between single and double quote"
+      * string aStringStepDef = "don't know why there is an extra step definition for a string, .. just use def"
+      * print jsExpInString
+
   Scenario: "Given, When and Then is obsolete"
     * print 'The given, when, then blocks are ignored in the end'
     * print 'You can leave them out'
@@ -80,17 +86,6 @@ Feature: Testing the karate syntax features and use this as a small executable r
     ]
     """
 
-  Scenario: Yaml is supported as well
-    Given yaml myFirstYaml =
-  """
-    name: John
-    input:
-      id: 1
-      subType:
-        name: Smith
-        deleted: false
-  """
-
   Scenario: Read CSV file and convert that to json
     Given json dataFromCsv = read('data.csv')
     Then match dataFromCsv ==
@@ -141,3 +136,25 @@ Feature: Testing the karate syntax features and use this as a small executable r
     * csv bar = foo
     * match bar == [{ name: 'Billie', type: 'LOL' }, { name: 'Bob', type: 'Wild' }]
 
+
+  Scenario Outline: inline json
+    * match __row == { first: 'hello', second: { a: 1 } }
+    * match first == 'hello'
+    * match second == { a: 1 }
+
+    Examples: Just a view examples
+      | first  | second!  |
+      | hello  | { a: 1 } |
+
+    Scenario: Matching text
+      * def yourResponse = "12:10:33.960 [print] Kyc Status changed from NotStarted to Accepted.Reason: Output Address AddressLine : 6927 14TH AVE"
+      * match yourResponse contains "NotStarted to Accepted"
+      * match yourResponse !contains "does not contain"
+      * assert new RegExp("NotStarted to Accepted").test(yourResponse)
+
+
+    Scenario Outline: Reading examples from csv. Placeholders like <name> and <likes> will be replaced by example data.
+      * print '<name>'
+      * print '<likes>'
+    Examples:
+      | read('data.csv') |
