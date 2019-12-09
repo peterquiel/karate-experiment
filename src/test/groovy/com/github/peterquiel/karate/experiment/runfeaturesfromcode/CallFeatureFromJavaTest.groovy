@@ -2,7 +2,6 @@ package com.github.peterquiel.karate.experiment.runfeaturesfromcode
 
 import com.intuit.karate.Results
 import com.intuit.karate.Runner
-import com.intuit.karate.core.Result
 import com.intuit.karate.junit5.Karate
 import org.junit.jupiter.api.Test
 
@@ -33,10 +32,6 @@ class CallFeatureFromJavaTest {
         assert result.hello == "Hello Mr. Pink"
     }
 
-    @Karate.Test
-    Karate "run with karate JUnit5 integration"() {
-        return Karate.karate("executed-by-java-testcase.feature").relativeTo(getClass())
-    }
 
     @Test
     void "run with new Runner integration" () {
