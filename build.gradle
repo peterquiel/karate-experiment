@@ -7,9 +7,11 @@
  */
 buildscript {
     ext {
-        karateVersion = '0.9.5.RC3'
+        // karateVersion = '1.0.0'
+       karateVersion = '0.9.5.RC5'
     }
 }
+
 plugins {
     id 'scala'
     id 'groovy'
@@ -54,7 +56,6 @@ test {
     // pull karate env into the runtime
     systemProperty "karate.env", System.properties.getProperty("karate.env")
     
-    systemProperty "kick_my_ass", System.properties.kick_my_ass
     // ensure tests are always run
     outputs.upToDateWhen { false }
 }
@@ -82,4 +83,9 @@ task gatlingRun(type: JavaExec) {
             '-rf', "${buildDir}/reports/gatling"
     ]
     systemProperties System.properties
+}
+
+task karateExecute(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = System.properties.getProperty('mainClass')
 }

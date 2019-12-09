@@ -17,11 +17,11 @@ Feature: Testing the karate syntax features and use this as a small executable r
 
     Then assert color + num == 'red 5'
 
-    Scenario: Karate Strings
-      * def singleQuoteString = 'just a string'
-      * def doubleQuoteString = "no difference between single and double quote"
-      * string aStringStepDef = "don't know why there is an extra step definition for a string, .. just use def"
-      * print jsExpInString
+  Scenario: Karate Strings
+    * def singleQuoteString = 'just a string'
+    * def doubleQuoteString = "no difference between single and double quote"
+    * string aStringStepDef = "don't know why there is an extra step definition for a string, .. just use def"
+    * print jsExpInString
 
   Scenario: "Given, When and Then is obsolete"
     * print 'The given, when, then blocks are ignored in the end'
@@ -72,22 +72,22 @@ Feature: Testing the karate syntax features and use this as a small executable r
 
   Scenario: Tables offer an elegant way to create json arrays
     Given table bikes
-      | name      | likes |
-      | 'Cucuma'  | 1     |
-      | 'Canyon'  | 2     |
-      | 'Stevens' | 3     |
+      | placement | name                          |
+      | 1         | "Big Trouble in Little China" |
+      | 2         | "The Karate Kid"              |
+      | 3         | "Police Story"                |
 
     Then match bikes ==
     """
     [
-      {name : "Cucuma", likes : 1}
-      {name : "Canyon", likes : 2}
-      {name : "Stevens", likes : 3}
+      {placement: 1, name: "Big Trouble in Little China" }
+      {placement: 2, name: "The Karate Kid"              }
+      {placement: 3, name: "Police Story"                }
     ]
     """
 
   Scenario: Read CSV file and convert that to json
-    Given json dataFromCsv = read('data.csv')
+    Given json dataFromCsv = read('classpath:data.csv')
     Then match dataFromCsv ==
     """
     [
@@ -143,18 +143,44 @@ Feature: Testing the karate syntax features and use this as a small executable r
     * match second == { a: 1 }
 
     Examples: Just a view examples
-      | first  | second!  |
-      | hello  | { a: 1 } |
+      | first | second!  |
+      | hello | { a: 1 } |
 
-    Scenario: Matching text
-      * def yourResponse = "12:10:33.960 [print] Kyc Status changed from NotStarted to Accepted.Reason: Output Address AddressLine : 6927 14TH AVE"
-      * match yourResponse contains "NotStarted to Accepted"
-      * match yourResponse !contains "does not contain"
-      * assert new RegExp("NotStarted to Accepted").test(yourResponse)
+  Scenario: Matching text
+    * def yourResponse = "12:10:33.960 [print] Kyc Status changed from NotStarted to Accepted.Reason: Output Address AddressLine : 6927 14TH AVE"
+    * match yourResponse contains "NotStarted to Accepted"
+    * match yourResponse !contains "does not contain"
+    * assert new RegExp("NotStarted to Accepted").test(yourResponse)
 
 
-    Scenario Outline: Reading examples from csv. Placeholders like <name> and <likes> will be replaced by example data.
-      * print '<name>'
-      * print '<likes>'
+  Scenario Outline: Reading examples from csv. Placeholders like <name> and <likes> will be replaced by example data.
+    * print '<name>'
+    * print '<likes>'
     Examples:
-      | read('data.csv') |
+      | read('classpath:data.csv') |
+
+
+#  Scenario: Documentary string..
+#  This is is currently - 0.9.5.RC3 - a bug and doesn't terminate.
+#    Given url "https://www.google.de"
+#      """
+#      This is text to document your scenario in detail.
+#      """
+#    When method get
+#    Then status 200
+
+  Scenario: Documentary string  whit karate embed
+    Given url "https://www.google.de"
+    * karate.embed('This is text to document your scenario in detail.', 'text/plain')
+    When method get
+    Then status 200
+
+  # following scenarios reproduce test result listing bug
+  Scenario: First 'scenario' with single quotes in title
+    * print 1
+
+  Scenario: Second 'scenario' with single quotes in title
+    * print 1 + 1
+
+  Scenario: First scenario without quotes in title
+    * print 1 + 1 + 1

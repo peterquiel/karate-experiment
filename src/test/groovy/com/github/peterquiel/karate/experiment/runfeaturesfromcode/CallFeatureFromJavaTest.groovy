@@ -1,6 +1,9 @@
-package com.github.peterquiel.karate.experiment
+package com.github.peterquiel.karate.experiment.runfeaturesfromcode
 
+import com.intuit.karate.Results
 import com.intuit.karate.Runner
+import com.intuit.karate.core.Result
+import com.intuit.karate.junit5.Karate
 import org.junit.jupiter.api.Test
 
 class CallFeatureFromJavaTest {
@@ -24,9 +27,25 @@ class CallFeatureFromJavaTest {
 //        Hence, this does not work and I have to use the `classpath:` lookup instead.
 //        def result = Runner.runFeature(getClass(), "java-api.feature", args, false)
 
-        def result = Runner.runFeature("classpath:com/github/peterquiel/karate/experiment/java-api.feature", args, false)
+        def result = Runner.runFeature("classpath:com/github/peterquiel/karate/experiment/runfeaturesfromcode/java-api.feature", args, false)
 
         assert result.simpleJson == [foo: 'bar']
         assert result.hello == "Hello Mr. Pink"
+    }
+
+    @Karate.Test
+    Karate "run with karate JUnit5 integration"() {
+        return Karate.karate("executed-by-java-testcase.feature").relativeTo(getClass())
+    }
+
+    @Test
+    void "run with new Runner integration" () {
+        Results result = Runner.path("classpath:com/github/peterquiel/karate/experiment/runfeaturesfromcode")
+
+        // don't call scenarios annotaed with `@withParameter`
+        .tags("~withParameter")
+                .parallel(1)
+
+        assert result.getFailCount() == 0
     }
 }

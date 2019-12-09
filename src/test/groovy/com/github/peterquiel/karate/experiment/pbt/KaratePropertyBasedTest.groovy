@@ -1,11 +1,8 @@
-package com.github.peterquiel.karate.pbt
+package com.github.peterquiel.karate.experiment.pbt
 
 import com.intuit.karate.Runner
 import net.jqwik.api.ForAll
-import net.jqwik.api.Property
-import net.jqwik.api.constraints.AlphaChars
 import net.jqwik.api.constraints.NotEmpty
-import org.junit.Ignore
 import org.slf4j.LoggerFactory
 
 class KaratePropertyBasedTest {

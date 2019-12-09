@@ -15,4 +15,3 @@ Feature: A test to show how to wait between each scenario
 
   Scenario: Second Scenario
     * print 2
-
