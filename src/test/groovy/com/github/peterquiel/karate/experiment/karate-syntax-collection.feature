@@ -184,3 +184,31 @@ Feature: Testing the karate syntax features and use this as a small executable r
 
   Scenario: First scenario without quotes in title
     * print 1 + 1 + 1
+
+
+    Scenario: how-to-validate-multiple-possible-values-in-karate-using-a-schema
+    * def schema =
+"""
+{
+    "itemType":{
+        "hardware":[
+            "VIDEO CARD",
+            "SOLID STATE DRIVE",
+            "HARD DRIVE"
+        ]
+    }
+}
+"""
+    * def response =
+"""
+{
+    "itemType": {
+        "hardware": "HARD DRIVE"
+    }
+}
+"""
+      * match schema.itemType.hardware contains response.itemType.hardware
+#
+#    * match response == { itemType: { hardware: '#? schema.itemType.hardware.contains(_)' } }
+#    * def isValidHardware = function(x){ return schema.itemType.hardware.contains(x) }
+#    * match response == { itemType: { hardware: '#? isValidHardware(_)' } }
