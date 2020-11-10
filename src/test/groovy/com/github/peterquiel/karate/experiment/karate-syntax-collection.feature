@@ -208,7 +208,25 @@ Feature: Testing the karate syntax features and use this as a small executable r
 }
 """
       * match schema.itemType.hardware contains response.itemType.hardware
-#
-#    * match response == { itemType: { hardware: '#? schema.itemType.hardware.contains(_)' } }
-#    * def isValidHardware = function(x){ return schema.itemType.hardware.contains(x) }
-#    * match response == { itemType: { hardware: '#? isValidHardware(_)' } }
+
+
+Scenario: Test to read/write within karate..
+    * def token = 'xyz12345'
+    * eval  karate.write(karate.get('token'), 'token.txt'); 
+    * def tokenToJson = 
+    """
+      function(tokenParam) {
+        return { token: tokenParam}
+      }
+    """
+
+    * string tokenFromFile = read('file:target/token.txt')
+    * def tokenAsJson = call tokenToJson tokenFromFile
+    * print tokenAsJson
+    * match tokenAsJson == {token: #(token)} 
+
+  Scenario: Test array value contains string
+    * def x = ["test abc"]
+    * def y = ["test"]
+    * match x[0] contains y[0]
+    # * match x contains y
